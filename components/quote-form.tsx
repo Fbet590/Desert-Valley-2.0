@@ -1,8 +1,78 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { ChevronLeft, ChevronRight, Check, Loader2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Check, Loader2, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+// Common fake/disposable email domains to block
+const BLOCKED_EMAIL_DOMAINS = [
+  "tempmail.com", "throwaway.com", "fakeinbox.com", "guerrillamail.com",
+  "10minutemail.com", "mailinator.com", "yopmail.com", "trashmail.com",
+  "getnada.com", "temp-mail.org", "dispostable.com", "maildrop.cc",
+  "sharklasers.com", "spam4.me", "grr.la", "guerrillamail.info"
+]
+
+// Email validation - checks format and blocks disposable domains
+function isValidEmail(email: string): { valid: boolean; error?: string } {
+  const trimmed = email.trim().toLowerCase()
+  
+  // Basic format check
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  if (!emailRegex.test(trimmed)) {
+    return { valid: false, error: "Please enter a valid email address" }
+  }
+  
+  // Check for blocked domains
+  const domain = trimmed.split("@")[1]
+  if (BLOCKED_EMAIL_DOMAINS.includes(domain)) {
+    return { valid: false, error: "Please use a real email address (no temporary emails)" }
+  }
+  
+  // Check for obvious fake patterns
+  if (/^(test|fake|asdf|qwerty|abc|123|xxx)/.test(trimmed)) {
+    return { valid: false, error: "Please enter your real email address" }
+  }
+  
+  return { valid: true }
+}
+
+// Phone validation - US format, checks for obviously fake numbers
+function isValidPhone(phone: string): { valid: boolean; error?: string } {
+  // Remove all non-digit characters
+  const digits = phone.replace(/\D/g, "")
+  
+  // Check length (10 digits for US, or 11 if starts with 1)
+  if (digits.length < 10) {
+    return { valid: false, error: "Please enter a complete 10-digit phone number" }
+  }
+  
+  if (digits.length > 11 || (digits.length === 11 && digits[0] !== "1")) {
+    return { valid: false, error: "Please enter a valid US phone number" }
+  }
+  
+  // Get the 10-digit number (remove leading 1 if present)
+  const tenDigits = digits.length === 11 ? digits.slice(1) : digits
+  
+  // Check for obviously fake numbers
+  const fakePatterns = [
+    /^0{10}$/, /^1{10}$/, /^2{10}$/, /^3{10}$/, /^4{10}$/, 
+    /^5{10}$/, /^6{10}$/, /^7{10}$/, /^8{10}$/, /^9{10}$/,
+    /^1234567890$/, /^0123456789$/, /^5555555555$/,
+    /^(.)\1{9}$/ // All same digit
+  ]
+  
+  if (fakePatterns.some(p => p.test(tenDigits))) {
+    return { valid: false, error: "Please enter your real phone number" }
+  }
+  
+  // Check for invalid area codes (000, 555 for non-directory numbers)
+  const areaCode = tenDigits.slice(0, 3)
+  if (areaCode === "000" || areaCode === "555") {
+    return { valid: false, error: "Please enter a valid area code" }
+  }
+  
+  return { valid: true }
+}
 
 const STEPS = [
   {
@@ -40,23 +110,51 @@ export function QuoteForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [transitioning, setTransitioning] = useState(false)
+  const [validationError, setValidationError] = useState<string | null>(null)
   const formRef = useRef<HTMLDivElement>(null)
 
   const progress = ((currentStep + 1) / STEPS.length) * 100
   const step = STEPS[currentStep]
-  const canGoNext =
-    step.type === "select"
-      ? answers[currentStep] !== undefined
-      : (answers[currentStep] ?? "").trim().length > 0
+  
+  // Validate current step
+  function validateCurrentStep(): { valid: boolean; error?: string } {
+    const value = answers[currentStep] ?? ""
+    if (step.type === "select") {
+      return { valid: value !== undefined && value !== "" }
+    }
+    if (step.field === "email") {
+      return isValidEmail(value)
+    }
+    if (step.field === "phone") {
+      return isValidPhone(value)
+    }
+    if (step.field === "name") {
+      const trimmed = value.trim()
+      if (trimmed.length < 2) {
+        return { valid: false, error: "Please enter your full name" }
+      }
+      // Check for obviously fake names
+      if (/^(test|fake|asdf|xxx|aaa)/i.test(trimmed)) {
+        return { valid: false, error: "Please enter your real name" }
+      }
+      return { valid: true }
+    }
+    return { valid: value.trim().length > 0 }
+  }
+  
+  const validation = validateCurrentStep()
+  const canGoNext = validation.valid
   const isLastStep = currentStep === STEPS.length - 1
 
   function handleSelect(value: string) {
     setAnswers((prev) => ({ ...prev, [currentStep]: value }))
+    setValidationError(null) // Clear error when user types
     const step = STEPS[currentStep]
     if (step.type === "select" && currentStep < STEPS.length - 1) {
       setTransitioning(true)
       setTimeout(() => {
         setCurrentStep((s) => s + 1)
+        setValidationError(null)
         setTransitioning(false)
         setTimeout(() => {
           formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
@@ -66,7 +164,14 @@ export function QuoteForm() {
   }
 
   async function handleNext() {
-    if (!canGoNext) return
+    // Validate before proceeding
+    const result = validateCurrentStep()
+    if (!result.valid) {
+      setValidationError(result.error || "Please check your input")
+      return
+    }
+    setValidationError(null)
+    
     if (isLastStep) {
       setIsSubmitting(true)
       try {
@@ -100,7 +205,10 @@ export function QuoteForm() {
   }
 
   function handlePrev() {
-    if (currentStep > 0) setCurrentStep((s) => s - 1)
+    if (currentStep > 0) {
+      setCurrentStep((s) => s - 1)
+      setValidationError(null)
+    }
   }
 
   if (isSubmitted) {
@@ -215,9 +323,20 @@ export function QuoteForm() {
                   placeholder={step.placeholder}
                   value={answers[currentStep] ?? ""}
                   onChange={(e) => handleSelect(e.target.value)}
-                  className="w-full rounded-xl border-2 border-[oklch(0.75_0.01_80)] bg-background px-3 sm:px-4 py-2.5 sm:py-3 text-[16px] sm:text-[18px] text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none"
+                  className={cn(
+                    "w-full rounded-xl border-2 bg-background px-3 sm:px-4 py-2.5 sm:py-3 text-[16px] sm:text-[18px] text-foreground placeholder:text-muted-foreground transition-colors focus:outline-none",
+                    validationError 
+                      ? "border-red-500 focus:border-red-500" 
+                      : "border-[oklch(0.75_0.01_80)] focus:border-primary"
+                  )}
                   style={{ fontFamily: "var(--font-poppins), sans-serif" }}
                 />
+                {validationError && (
+                  <div className="mt-2 flex items-center gap-2 text-red-500 text-sm">
+                    <AlertCircle className="size-4 shrink-0" />
+                    <span style={{ fontFamily: "var(--font-poppins), sans-serif" }}>{validationError}</span>
+                  </div>
+                )}
               </div>
             )}
           </div>
