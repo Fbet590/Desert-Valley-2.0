@@ -87,9 +87,6 @@ export function HeroSection({ onGetQuote }: { onGetQuote: () => void }) {
             </div>
           ))}
         </div>
-        <p className="mb-10 max-w-2xl text-[19px] font-semibold text-[oklch(1_0_0)] leading-relaxed" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
-          {"Projects under $5,000 start at $500 down — larger builds at just $1,000."}
-        </p>
         <button
           onClick={onGetQuote}
           className="inline-flex items-center rounded-lg bg-[#FDC901] px-5 py-2.5 text-[16px] md:px-8 md:py-4 md:text-[1.25rem] font-bold uppercase tracking-wide text-[oklch(1_0_0)] shadow-lg transition-all hover:brightness-110"
