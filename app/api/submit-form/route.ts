@@ -6,8 +6,7 @@ export async function POST(request: Request) {
     
     // Map to standard field names for CRM compatibility
     const payload = {
-      package: rawPayload["Which package interested you the most?"] || "",
-      structure_location: rawPayload["Where will the structure go?"] || "",
+      package: rawPayload["Which package interests you?"] || "",
       name: rawPayload.name || "",
       email: rawPayload.email || "",
       phone: rawPayload.phone || "",
