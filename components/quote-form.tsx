@@ -125,14 +125,9 @@ export function QuoteForm() {
 
   return (
     <section id="quote-form" className="relative -mt-12 sm:-mt-24 z-20 pt-0 pb-20">
-      <div className="mx-auto max-w-2xl px-4 sm:px-6 mb-6 sm:mb-8 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-balance leading-snug" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
-          Projects under <span className="text-[#FDC901]">$5,000</span> start at <span className="text-[#FDC901]">$500</span> down — larger builds at just <span className="text-[#FDC901]">$1,000</span>.
-        </h2>
-      </div>
       <div ref={formRef} className="mx-auto max-w-lg px-4 sm:px-6">
-        <div className="rounded-2xl border-2 border-[#B94A00] bg-card p-4 sm:p-6 shadow-lg md:p-8">
-          <div className="mb-8 flex items-center gap-2">
+        <div className="rounded-2xl border-2 border-[#B94A00] bg-card pt-6 sm:pt-7 px-4 sm:px-6 pb-4 sm:pb-6 shadow-lg md:pt-7 md:px-8 md:pb-8">
+          <div className="mb-6 flex items-center gap-2">
             {STEPS.map((_, i) => (
               <div
                 key={i}
@@ -149,6 +144,15 @@ export function QuoteForm() {
             ))}
           </div>
 
+          {/* Eyebrow badge - only show on first step */}
+          {currentStep === 0 && (
+            <div className="text-center mb-4">
+              <span className="inline-block text-[12px] font-semibold tracking-[1.5px] uppercase text-[#B94A00]">
+                EASY START OFFER
+              </span>
+            </div>
+          )}
+
           <div
             className="transition-all duration-400 ease-in-out"
             style={{
@@ -156,9 +160,16 @@ export function QuoteForm() {
               transform: transitioning ? "translateY(12px)" : "translateY(0)",
             }}
           >
-            <h3 className="mb-4 sm:mb-5 font-serif text-[18px] sm:text-[22px] md:text-[24px] font-bold text-card-foreground text-balance">
+            <h3 className="mb-4 font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold text-card-foreground text-balance text-center">
               {step.title}
             </h3>
+
+            {/* Offer text - only show on first step */}
+            {currentStep === 0 && (
+              <p className="text-center text-[15px] sm:text-[16px] leading-relaxed text-[#555] mb-6">
+                Projects under $5,000 start at just <strong className="text-card-foreground">$500 down</strong> — larger builds at <strong className="text-card-foreground">$1,000</strong>.
+              </p>
+            )}
 
             {step.type === "select" && (
               <div className="mb-6 grid gap-2.5">
