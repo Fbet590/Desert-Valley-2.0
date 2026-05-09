@@ -75,7 +75,7 @@ export function HeroSection({ onGetQuote }: { onGetQuote: () => void }) {
 
       <div className="relative z-10 w-full max-w-4xl px-6 pt-32 md:pt-24 pb-12 text-left lg:px-12">
         <h1 className="mb-6 text-[45px] font-bold leading-tight text-[oklch(1_0_0)] md:text-5xl lg:text-6xl text-balance" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
-          Yep — 500 Bucks Gets Your Pergola Started.
+          $500 Bucks Gets Your Pergola Started.
         </h1>
         <div className="mb-8 flex flex-wrap items-center gap-6">
           {["Top Grade Premium Material", "12 Months 0% Financing Available", "Custom Built"].map((text) => (
@@ -87,9 +87,6 @@ export function HeroSection({ onGetQuote }: { onGetQuote: () => void }) {
             </div>
           ))}
         </div>
-        <p className="mb-10 max-w-2xl text-[19px] font-semibold text-[oklch(1_0_0)] leading-relaxed" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
-          {"Projects under $5,000 start at $500 down — larger builds at just $1,000."}
-        </p>
         <button
           onClick={onGetQuote}
           className="inline-flex items-center rounded-lg bg-[#FDC901] px-5 py-2.5 text-[16px] md:px-8 md:py-4 md:text-[1.25rem] font-bold uppercase tracking-wide text-[oklch(1_0_0)] shadow-lg transition-all hover:brightness-110"

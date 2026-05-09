@@ -124,7 +124,12 @@ export function QuoteForm() {
   }
 
   return (
-    <section id="quote-form" className="py-20">
+    <section id="quote-form" className="relative -mt-24 z-20 pt-0 pb-20">
+      <div className="mx-auto max-w-2xl px-6 mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-balance" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
+          Projects under <span className="text-[#FDC901]">$5,000</span> start at <span className="text-[#FDC901]">$500</span> down — larger builds at just <span className="text-[#FDC901]">$1,000</span>.
+        </h2>
+      </div>
       <div ref={formRef} className="mx-auto max-w-lg px-6">
         <div className="rounded-2xl border-2 border-[#B94A00] bg-card p-6 shadow-lg md:p-8">
           <div className="mb-8 flex items-center gap-2">
