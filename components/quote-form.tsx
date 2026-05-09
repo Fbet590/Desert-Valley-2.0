@@ -15,14 +15,6 @@ const STEPS = [
     ],
   },
   {
-    title: "Where will the structure go?",
-    type: "select" as const,
-    options: [
-      { label: "Attached to house" },
-      { label: "Free Standing" },
-    ],
-  },
-  {
     title: "Enter your name:",
     type: "text" as const,
     placeholder: "Your full name",
