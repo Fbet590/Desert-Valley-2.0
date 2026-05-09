@@ -160,13 +160,13 @@ export function QuoteForm() {
               transform: transitioning ? "translateY(12px)" : "translateY(0)",
             }}
           >
-            <h3 className="mb-4 text-[18px] sm:text-[20px] md:text-[22px] font-bold text-card-foreground text-balance text-center" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
+            <h3 className="mb-4 text-[23px] sm:text-[20px] md:text-[22px] font-bold text-card-foreground text-balance text-center" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
               {step.title}
             </h3>
 
             {/* Offer text - only show on first step */}
             {currentStep === 0 && (
-              <p className="text-center text-[15px] sm:text-[16px] leading-relaxed text-[#555] mb-6" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
+              <p className="text-center text-[20px] sm:text-[16px] leading-relaxed text-[#555] mb-6" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
                 Projects under $5,000 start at just <strong className="text-card-foreground">$500 down</strong> — larger builds at <strong className="text-card-foreground">$1,000</strong>.
               </p>
             )}
@@ -184,7 +184,7 @@ export function QuoteForm() {
                         : "border-[oklch(0.75_0.01_80)] hover:border-primary/40 hover:bg-secondary/50"
                     )}
                   >
-                    <span className="text-[16px] sm:text-[18px] font-black text-card-foreground" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
+                    <span className="text-[21px] sm:text-[18px] font-black text-card-foreground" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
                       {opt.label}
                     </span>
                   </button>
