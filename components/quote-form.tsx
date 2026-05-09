@@ -124,14 +124,14 @@ export function QuoteForm() {
   }
 
   return (
-    <section id="quote-form" className="relative -mt-24 z-20 pt-0 pb-20">
-      <div className="mx-auto max-w-2xl px-6 mb-8 text-center">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-balance" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
+    <section id="quote-form" className="relative -mt-12 sm:-mt-24 z-20 pt-0 pb-20">
+      <div className="mx-auto max-w-2xl px-4 sm:px-6 mb-6 sm:mb-8 text-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-balance leading-snug" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
           Projects under <span className="text-[#FDC901]">$5,000</span> start at <span className="text-[#FDC901]">$500</span> down — larger builds at just <span className="text-[#FDC901]">$1,000</span>.
         </h2>
       </div>
-      <div ref={formRef} className="mx-auto max-w-lg px-6">
-        <div className="rounded-2xl border-2 border-[#B94A00] bg-card p-6 shadow-lg md:p-8">
+      <div ref={formRef} className="mx-auto max-w-lg px-4 sm:px-6">
+        <div className="rounded-2xl border-2 border-[#B94A00] bg-card p-4 sm:p-6 shadow-lg md:p-8">
           <div className="mb-8 flex items-center gap-2">
             {STEPS.map((_, i) => (
               <div
@@ -156,7 +156,7 @@ export function QuoteForm() {
               transform: transitioning ? "translateY(12px)" : "translateY(0)",
             }}
           >
-            <h3 className="mb-5 font-serif text-[22px] md:text-[24px] font-bold text-card-foreground text-balance">
+            <h3 className="mb-4 sm:mb-5 font-serif text-[18px] sm:text-[22px] md:text-[24px] font-bold text-card-foreground text-balance">
               {step.title}
             </h3>
 
@@ -167,13 +167,13 @@ export function QuoteForm() {
                     key={opt.label}
                     onClick={() => handleSelect(opt.label)}
                     className={cn(
-                      "flex flex-col items-start rounded-xl border-2 px-4 py-3 text-left transition-all",
+                      "flex flex-col items-start rounded-xl border-2 px-3 sm:px-4 py-2.5 sm:py-3 text-left transition-all",
                       answers[currentStep] === opt.label
                         ? "border-primary bg-primary/5 shadow-sm"
                         : "border-[oklch(0.75_0.01_80)] hover:border-primary/40 hover:bg-secondary/50"
                     )}
                   >
-                    <span className="text-[22px] md:text-[18px] font-black text-card-foreground">
+                    <span className="text-[16px] sm:text-[18px] font-black text-card-foreground">
                       {opt.label}
                     </span>
                   </button>
@@ -194,7 +194,7 @@ export function QuoteForm() {
                   placeholder={step.placeholder}
                   value={answers[currentStep] ?? ""}
                   onChange={(e) => handleSelect(e.target.value)}
-                  className="w-full rounded-xl border-2 border-[oklch(0.75_0.01_80)] bg-background px-4 py-3 text-[20px] md:text-[18px] text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none"
+                  className="w-full rounded-xl border-2 border-[oklch(0.75_0.01_80)] bg-background px-3 sm:px-4 py-2.5 sm:py-3 text-[16px] sm:text-[18px] text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none"
                 />
               </div>
             )}
@@ -204,7 +204,7 @@ export function QuoteForm() {
             <button
               onClick={handlePrev}
               disabled={currentStep === 0}
-              className="inline-flex items-center gap-1 rounded-lg px-4 py-2.5 text-[22px] md:text-[18px] font-medium text-muted-foreground transition-colors hover:text-foreground disabled:opacity-0 disabled:pointer-events-none"
+              className="inline-flex items-center gap-1 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 text-[16px] sm:text-[18px] font-medium text-muted-foreground transition-colors hover:text-foreground disabled:opacity-0 disabled:pointer-events-none"
             >
               <ChevronLeft className="size-4" />
               Previous
@@ -213,7 +213,7 @@ export function QuoteForm() {
               onClick={handleNext}
               disabled={!canGoNext || isSubmitting}
               className={cn(
-                "inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-[22px] md:text-[18px] font-semibold transition-all shadow-md disabled:opacity-50",
+                "inline-flex items-center gap-2 rounded-lg px-4 sm:px-5 py-2 sm:py-2.5 text-[16px] sm:text-[18px] font-semibold transition-all shadow-md disabled:opacity-50",
                 isLastStep
                   ? "bg-[#B94A00] text-[oklch(1_0_0)] hover:brightness-110"
                   : "bg-primary text-primary-foreground hover:brightness-110"

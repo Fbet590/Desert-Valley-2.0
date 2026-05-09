@@ -77,13 +77,13 @@ export function HeroSection({ onGetQuote }: { onGetQuote: () => void }) {
         <h1 className="mb-6 text-[45px] font-bold leading-tight text-[oklch(1_0_0)] md:text-5xl lg:text-6xl text-balance" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
           $500 Bucks Gets Your Pergola Started.
         </h1>
-        <div className="mb-8 flex flex-wrap items-center gap-6">
+        <div className="mb-8 flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6">
           {["Top Grade Premium Material", "12 Months 0% Financing Available", "Custom Built"].map((text) => (
-            <div key={text} className="flex items-center gap-2.5">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-[#FDC901]">
-                <Check className="size-4 text-[#FDC901]" strokeWidth={3} />
+            <div key={text} className="flex items-center gap-2">
+              <span className="flex size-6 sm:size-7 shrink-0 items-center justify-center rounded-full border-2 border-[#FDC901]">
+                <Check className="size-3 sm:size-4 text-[#FDC901]" strokeWidth={3} />
               </span>
-              <span className="text-[20px] font-semibold text-[oklch(1_0_0)]" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>{text}</span>
+              <span className="text-[16px] sm:text-[20px] font-semibold text-[oklch(1_0_0)]" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>{text}</span>
             </div>
           ))}
         </div>
