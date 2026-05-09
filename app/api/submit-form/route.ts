@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     const results = await Promise.allSettled([
       fetch(
-        "https://services.leadconnectorhq.com/hooks/ZB6nXXWIks5IpbVwrpBH/webhook-trigger/63360b38-dc25-4639-9451-9738bade5d12",
+        "https://services.leadconnectorhq.com/hooks/ZB6nXXWIks5IpbVwrpBH/webhook-trigger/PCrpaf7ac3JZa2nWIW4T",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
