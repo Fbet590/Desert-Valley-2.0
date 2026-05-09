@@ -75,7 +75,7 @@ export function HeroSection({ onGetQuote }: { onGetQuote: () => void }) {
 
       <div className="relative z-10 w-full max-w-4xl px-6 pt-32 md:pt-24 pb-12 text-left lg:px-12">
         <h1 className="mb-6 text-[45px] font-bold leading-tight text-[oklch(1_0_0)] md:text-5xl lg:text-6xl text-balance" style={{ fontFamily: "'TeX Gyre Termes', serif" }}>
-          Transform Your Outdoors with Custom Patio Covers Designed to Impress
+          Yep — 500 Bucks Gets Your Pergola Started.
         </h1>
         <div className="mb-8 flex flex-wrap items-center gap-6">
           {["Top Grade Premium Material", "12 Months 0% Financing Available", "Custom Built"].map((text) => (
@@ -88,7 +88,7 @@ export function HeroSection({ onGetQuote }: { onGetQuote: () => void }) {
           ))}
         </div>
         <p className="mb-10 max-w-2xl text-[19px] font-semibold text-[oklch(1_0_0)] leading-relaxed" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
-          {"Check off the option you're looking for below and we'll do the rest!"}
+          {"Projects under $5,000 start at $500 down — larger builds at just $1,000."}
         </p>
         <button
           onClick={onGetQuote}
