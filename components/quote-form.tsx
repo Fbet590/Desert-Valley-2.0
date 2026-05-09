@@ -147,7 +147,7 @@ export function QuoteForm() {
           {/* Eyebrow badge - only show on first step */}
           {currentStep === 0 && (
             <div className="text-center mb-4">
-              <span className="inline-block text-[12px] font-semibold tracking-[1.5px] uppercase text-[#B94A00]">
+              <span className="inline-block text-[17px] font-bold tracking-[2px] uppercase text-[#B94A00] bg-[#B94A00]/10 px-4 py-1.5 rounded-full">
                 EASY START OFFER
               </span>
             </div>
@@ -166,26 +166,36 @@ export function QuoteForm() {
 
             {/* Offer text - only show on first step */}
             {currentStep === 0 && (
-              <p className="text-center text-[20px] sm:text-[16px] leading-relaxed text-[#555] mb-6" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
-                Projects under $5,000 start at just <strong className="text-card-foreground">$500 down</strong> — larger builds at <strong className="text-card-foreground">$1,000</strong>.
+              <p className="text-center text-[20px] sm:text-[17px] leading-relaxed text-[#333] mb-6" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
+                Projects under $5,000 start at just <strong className="text-[#B94A00] font-extrabold">$500 down</strong> — larger builds at <strong className="text-[#B94A00] font-extrabold">$1,000</strong>.
               </p>
             )}
 
             {step.type === "select" && (
-              <div className="mb-6 grid gap-2.5">
+              <div className="mb-6 grid gap-3">
                 {step.options.map((opt) => (
                   <button
                     key={opt.label}
                     onClick={() => handleSelect(opt.label)}
                     className={cn(
-                      "flex flex-col items-start rounded-xl border-2 px-3 sm:px-4 py-2.5 sm:py-3 text-left transition-all",
+                      "group flex items-center justify-between rounded-xl border-2 px-4 sm:px-5 py-4 sm:py-4 text-left transition-all duration-200 cursor-pointer",
                       answers[currentStep] === opt.label
-                        ? "border-primary bg-primary/5 shadow-sm"
-                        : "border-[oklch(0.75_0.01_80)] hover:border-primary/40 hover:bg-secondary/50"
+                        ? "border-[#B94A00] bg-[#B94A00]/10 shadow-md scale-[1.02]"
+                        : "border-[oklch(0.8_0.01_80)] hover:border-[#B94A00]/60 hover:bg-[#B94A00]/5 hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]"
                     )}
                   >
-                    <span className="text-[21px] sm:text-[18px] font-black text-card-foreground" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
+                    <span className="text-[21px] sm:text-[18px] font-bold text-card-foreground" style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
                       {opt.label}
+                    </span>
+                    <span className={cn(
+                      "flex items-center justify-center size-6 rounded-full border-2 transition-all duration-200",
+                      answers[currentStep] === opt.label
+                        ? "border-[#B94A00] bg-[#B94A00]"
+                        : "border-[oklch(0.7_0.01_80)] group-hover:border-[#B94A00]/60"
+                    )}>
+                      {answers[currentStep] === opt.label && (
+                        <Check className="size-4 text-white" strokeWidth={3} />
+                      )}
                     </span>
                   </button>
                 ))}
